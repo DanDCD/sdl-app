@@ -2,7 +2,7 @@
     "configurations": [
         {
             "name": "Mac",
-            "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+            "compileCommands": "${workspaceFolder}/build/debug/compile_commands.json",
             "cppStandard": "c++23",
             "intelliSenseMode": "macos-clang-arm64"
         }

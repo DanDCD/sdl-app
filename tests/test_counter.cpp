@@ -1,30 +1,75 @@
-#include <catch2/catch_test_macros.hpp>
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include "counter/Counter.h"
+#include "counter/ICounterListener.h"
 
-TEST_CASE("Counter default-initialises to zero", "[counter]") {
+// ── Value tests ────────────────────────────────────────────────────────────
+
+TEST(CounterTest, DefaultInitialisesToZero) {
     Counter c;
-    REQUIRE(c.value() == 0);
+    EXPECT_EQ(c.value(), 0);
 }
 
-TEST_CASE("Counter initialises to given value", "[counter]") {
+TEST(CounterTest, InitialisesToGivenValue) {
     Counter c{5};
-    REQUIRE(c.value() == 5);
+    EXPECT_EQ(c.value(), 5);
 }
 
-TEST_CASE("increment increases value by one", "[counter]") {
+TEST(CounterTest, IncrementIncreasesValueByOne) {
     Counter c;
     c.increment();
-    REQUIRE(c.value() == 1);
+    EXPECT_EQ(c.value(), 1);
 }
 
-TEST_CASE("decrement decreases value by one", "[counter]") {
+TEST(CounterTest, DecrementDecreasesValueByOne) {
     Counter c;
     c.decrement();
-    REQUIRE(c.value() == -1);
+    EXPECT_EQ(c.value(), -1);
 }
 
-TEST_CASE("reset returns value to zero", "[counter]") {
+TEST(CounterTest, ResetReturnsValueToZero) {
     Counter c{10};
     c.reset();
-    REQUIRE(c.value() == 0);
+    EXPECT_EQ(c.value(), 0);
+}
+
+// ── Listener mock ──────────────────────────────────────────────────────────
+
+class MockCounterListener : public ICounterListener {
+public:
+    MOCK_METHOD(void, onValueChanged, (int newValue), (override));
+};
+
+class CounterListenerTest : public ::testing::Test {
+protected:
+    MockCounterListener listener;
+    Counter counter;
+
+    void SetUp() override {
+        counter.setListener(&listener);
+    }
+};
+
+TEST_F(CounterListenerTest, NotifiesOnIncrement) {
+    EXPECT_CALL(listener, onValueChanged(1));
+    counter.increment();
+}
+
+TEST_F(CounterListenerTest, NotifiesOnDecrement) {
+    EXPECT_CALL(listener, onValueChanged(-1));
+    counter.decrement();
+}
+
+TEST_F(CounterListenerTest, NotifiesOnReset) {
+    Counter c{5};
+    c.setListener(&listener);
+    EXPECT_CALL(listener, onValueChanged(0));
+    c.reset();
+}
+
+TEST_F(CounterListenerTest, NoCallsWithoutListener) {
+    Counter c;
+    EXPECT_CALL(listener, onValueChanged(::testing::_)).Times(0);
+    c.increment();
+    EXPECT_EQ(c.value(), 1);
 }

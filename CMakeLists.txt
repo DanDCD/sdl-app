@@ -21,13 +21,15 @@ set(SDL_STATIC ON  CACHE BOOL "" FORCE)
 set(SDL_TEST   OFF CACHE BOOL "" FORCE)
 
 FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG        v3.7.0
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG        v1.15.2
     GIT_SHALLOW    TRUE
 )
 
-FetchContent_MakeAvailable(SDL3 Catch2)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(SDL3 googletest)
 
 # ── Library ───────────────────────────────────────────────────────────────────
 
@@ -44,8 +46,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE counter SDL3::SDL3-static)
 # ── Tests ─────────────────────────────────────────────────────────────────────
 
 add_executable(tests tests/test_counter.cpp)
-target_link_libraries(tests PRIVATE counter Catch2::Catch2WithMain)
+target_link_libraries(tests PRIVATE counter GTest::gmock_main)
 
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
-include(Catch)
-catch_discover_tests(tests)
+include(GoogleTest)
+gtest_discover_tests(tests)
