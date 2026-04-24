@@ -1,0 +1,7 @@
+{
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "cmake.debugConfig": {
+        "type": "cppdbg",
+        "MIMode": "lldb"
+    }
+}
