@@ -36,12 +36,20 @@ FetchContent_MakeAvailable(SDL3 googletest)
 add_library(counter STATIC
     src/counter/Counter.cpp
 )
+
+add_library(app STATIC
+    src/app/app_state.cpp
+)
+
 target_include_directories(counter PUBLIC src)
+target_include_directories(app PUBLIC src)
+
+target_link_libraries(app PUBLIC SDL3::SDL3-static)
 
 # ── Application ───────────────────────────────────────────────────────────────
 
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE counter SDL3::SDL3-static)
+target_link_libraries(${PROJECT_NAME} PRIVATE counter SDL3::SDL3-static app)
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
 
