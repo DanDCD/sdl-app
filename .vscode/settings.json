@@ -2,6 +2,20 @@
     "C_Cpp.intelliSenseEngine": "disabled",
     "cmake.debugConfig": {
         "type": "cppdbg",
-        "MIMode": "lldb"
+        "MIMode": "lldb",
+        "environment": [
+            {
+                "name": "VK_LAYER_PATH",
+                "value": "/opt/homebrew/opt/vulkan-validationlayers/share/vulkan/explicit_layer.d"
+            },
+            {
+                "name": "DYLD_LIBRARY_PATH",
+                "value": "/opt/homebrew/opt/vulkan-validationlayers/lib"
+            }
+        ]
+    },
+    "cmake.environment": {
+        "VK_LAYER_PATH": "/opt/homebrew/opt/vulkan-validationlayers/share/vulkan/explicit_layer.d",
+        "DYLD_LIBRARY_PATH": "/opt/homebrew/opt/vulkan-validationlayers/lib"
     }
 }

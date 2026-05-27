@@ -1,5 +1,6 @@
 #pragma once
 
+#include "app/graphics.h"
 #include <memory>
 
 #include <SDL3/SDL_video.h>
@@ -10,6 +11,7 @@ struct SDL_Window_Deleter
     void operator()(SDL_Window* w) const;
 };
 
+
 class AppState
 {
 public:
@@ -18,10 +20,8 @@ AppState(SDL_Window* window);
 
 private:
 
-
 public:
 std::unique_ptr<SDL_Window, SDL_Window_Deleter> d_window;
-
-
+Graphics d_graphics;
 
 };

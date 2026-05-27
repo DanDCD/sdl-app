@@ -12,7 +12,16 @@
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
+            "environment": [
+                {
+                    "name": "VK_LAYER_PATH",
+                    "value": "/opt/homebrew/opt/vulkan-validationlayers/share/vulkan/explicit_layer.d"
+                },
+                {
+                    "name": "DYLD_LIBRARY_PATH",
+                    "value": "/opt/homebrew/opt/vulkan-validationlayers/lib"
+                }
+            ],
             "MIMode": "lldb"
         }
     ]

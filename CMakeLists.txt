@@ -9,6 +9,8 @@ include(FetchContent)
 
 # ── Dependencies ──────────────────────────────────────────────────────────────
 
+find_package(Vulkan REQUIRED) # assumes Vulkan is installed (see README)
+
 FetchContent_Declare(
     SDL3
     GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
@@ -39,17 +41,18 @@ add_library(counter STATIC
 
 add_library(app STATIC
     src/app/app_state.cpp
+    src/app/graphics.cpp
 )
 
 target_include_directories(counter PUBLIC src)
 target_include_directories(app PUBLIC src)
 
-target_link_libraries(app PUBLIC SDL3::SDL3-static)
+target_link_libraries(app PUBLIC SDL3::SDL3-static Vulkan::Vulkan)
 
 # ── Application ───────────────────────────────────────────────────────────────
 
 add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE counter SDL3::SDL3-static app)
+target_link_libraries(${PROJECT_NAME} PRIVATE app)
 
 # ── Tests ─────────────────────────────────────────────────────────────────────
 
