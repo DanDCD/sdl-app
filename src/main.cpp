@@ -1,3 +1,5 @@
+#include "SDL3/SDL_events.h"
+#include "SDL3/SDL_oldnames.h"
 #include "SDL3/SDL_video.h"
 #include <memory>
 #define SDL_MAIN_USE_CALLBACKS 1 // use callbacks for app entrypoints instead of main()
@@ -23,16 +25,28 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     return SDL_APP_CONTINUE;
 }
 
+// called repeatedly - no guaranteed timing/refresh
 SDL_AppResult SDL_AppIterate(void *appstate)
 {
     // SDL_Log("Spamming Logs");
-
-
+    
+    
     return SDL_APP_CONTINUE;
 }
 
-SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
+// invoked whenever an event is created (can be from any thread and concurrent with app iterate)
+SDL_AppResult SDL_AppEvent(void *appstate_vptr, SDL_Event *event)
 {
+    AppState* appState_ptr = static_cast<AppState*>(appstate_vptr);
+
+    switch(event->type)
+    {
+        case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+            return SDL_APP_SUCCESS;
+            break;
+        default:
+            break;
+    }
     return SDL_APP_CONTINUE;
 }
 

@@ -14,7 +14,7 @@ class AppState
 {
 public:
 AppState(SDL_Window* window);
-~AppState() = default;
+~AppState();
 
 private:
 
