@@ -7,7 +7,7 @@
 
 void SDL_GPUDevice_Deleter::operator()(SDL_GPUDevice* gpuDevice) const
 {
-
+    SDL_DestroyGPUDevice(gpuDevice);
 }
 
 /// TODO: allow togglable debug_mode
