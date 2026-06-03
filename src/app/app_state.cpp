@@ -8,7 +8,7 @@ void SDL_Window_Deleter::operator()(SDL_Window * window) const {
 
 AppState::AppState(SDL_Window *window) 
 : d_window(window),
-  d_graphics()
+  d_graphics(window)
 {
 
 }

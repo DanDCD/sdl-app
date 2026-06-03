@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL3/SDL_gpu.h"
+#include "SDL3/SDL_video.h"
 
 #include <memory>
 
@@ -12,7 +13,7 @@ struct SDL_GPUDevice_Deleter
 class Graphics
 {
 public:
-Graphics();
+Graphics(SDL_Window* window_ptr);
 ~Graphics();
 
 public:
