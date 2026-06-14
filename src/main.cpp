@@ -1,5 +1,4 @@
 #include "SDL3/SDL_events.h"
-#include "SDL3/SDL_oldnames.h"
 #include "SDL3/SDL_video.h"
 #include <memory>
 #define SDL_MAIN_USE_CALLBACKS 1 // use callbacks for app entrypoints instead of main()

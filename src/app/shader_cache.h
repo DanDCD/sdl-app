@@ -1,7 +1,6 @@
 #pragma once
 #include <optional>
 #include <string>
-#include <string_view>
 #include <unordered_map>
 
 #include "SDL3/SDL_gpu.h"
