@@ -12,8 +12,10 @@ void SDL_GPUDevice_Deleter::operator()(SDL_GPUDevice* gpuDevice) const
 
 /// TODO: allow togglable debug_mode
 Graphics::Graphics(SDL_Window* window_ptr)
-:   d_gpuDevice_ptr{SDL_CreateGPUDevice(SDL_GPU_SHADERFORMAT_SPIRV, true, nullptr)}
+:   d_gpuDevice_ptr{SDL_CreateGPUDevice(SDL_GPU_SHADERFORMAT_SPIRV, true, nullptr)},
+    d_shaderCache{}
 {
+    // Initialize GPU Device and claim window
     if (!d_gpuDevice_ptr) {
         SDL_Log("Failed to create GPU device: %s", SDL_GetError());
         return;
@@ -26,6 +28,10 @@ Graphics::Graphics(SDL_Window* window_ptr)
         SDL_Log("Failed to claim window for GPU device: %s", SDL_GetError());
         return;
     }
+
+    // Load Shaders
+    d_shaderCache.loadShadersFromDir(*d_gpuDevice_ptr.get());
+
 
     SDL_Log("Graphics component has finished setup");
 }

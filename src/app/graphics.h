@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL3/SDL_gpu.h"
 #include "SDL3/SDL_video.h"
+#include "shader_cache.h"
 
 #include <memory>
 
@@ -18,4 +19,6 @@ Graphics(SDL_Window* window_ptr);
 
 public:
 std::unique_ptr<SDL_GPUDevice, SDL_GPUDevice_Deleter> d_gpuDevice_ptr;
+ShaderCache d_shaderCache;
+
 };

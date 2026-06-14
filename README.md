@@ -24,3 +24,10 @@ SDL3 is fetched from source automatically on first configure (~1 min).
 export VK_LAYER_PATH=$(brew --prefix vulkan-validationlayers)/share/vulkan/explicit_layer.d # if debug mode on for Vulkan
 ./build/cpp_app
 ```
+
+## Resources
+https://scratchapixel.com/
+https://gpuforbeginners.com/
+https://wiki.libsdl.org/SDL3/Tutorials
+https://moonside.games/posts/layers-all-the-way-down/
+https://moonside.games/posts/introducing-sdl-shadercross/

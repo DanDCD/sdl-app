@@ -25,7 +25,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     auto sdl3Booted = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     SDL_Log("SDL3 boot %s", sdl3Booted ? "succeeded" : "failed");
     
-    *appstate = std::make_unique<AppState>(SDL_CreateWindow("window", 100, 100, SDL_WINDOW_OPENGL)).release();
+    *appstate = std::make_unique<AppState>(SDL_CreateWindow("window", 100, 100, SDL_WINDOW_VULKAN)).release();
 
     return SDL_APP_CONTINUE;
 }
