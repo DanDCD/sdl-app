@@ -1,4 +1,5 @@
 #pragma once
+#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -19,6 +20,8 @@ bool loadShadersFromDir(SDL_GPUDevice& gpuDevice);
 
 private:
 bool loadShaderFromFile(const std::string& filePath, SDL_GPUDevice& gpuDevice);
+
+std::optional<SDL_ShaderCross_ShaderStage> inferStageFromPath(const std::string& filePath) const;
 
 std::unordered_map<std::string, SDL_GPUShader*> d_vertexShaderCache;
 std::unordered_map<std::string, SDL_GPUShader*> d_fragShaderCache;
